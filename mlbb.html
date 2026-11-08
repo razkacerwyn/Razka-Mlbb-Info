@@ -1,0 +1,309 @@
+<!DOCTYPE html>
+<html lang="id" class="dark">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Razka Mlbb Info - Portal & Panduan Lengkap MLBB</title>
+    <!-- Tailwind CSS CDN -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script>
+        tailwind.config = {
+            darkMode: 'class',
+            theme: {
+                extend: {
+                    colors: {
+                        mlgold: {
+                            400: '#fbbf24',
+                            500: '#f59e0b',
+                            600: '#d97706',
+                        },
+                        mlblue: {
+                            500: '#3b82f6',
+                            600: '#2563eb',
+                            700: '#1d4ed8',
+                            900: '#1e3a8a',
+                        },
+                        mldark: {
+                            800: '#0f172a',
+                            900: '#090d16',
+                            950: '#05070b'
+                        }
+                    }
+                }
+            }
+        }
+    </script>
+    <!-- FontAwesome Icons -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <!-- Google Fonts Inter -->
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800;900&display=swap" rel="stylesheet">
+    <style>
+        body {
+            font-family: 'Inter', sans-serif;
+            background-color: #090d16;
+            color: #f8fafc;
+        }
+        .gaming-glow {
+            box-shadow: 0 0 20px rgba(59, 130, 246, 0.3);
+        }
+        .gold-glow {
+            box-shadow: 0 0 25px rgba(245, 158, 11, 0.4);
+        }
+        /* Custom scrollbar */
+        ::-webkit-scrollbar {
+            width: 8px;
+        }
+        ::-webkit-scrollbar-track {
+            background: #0f172a;
+        }
+        ::-webkit-scrollbar-thumb {
+            background: #3b82f6;
+            border-radius: 4px;
+        }
+        ::-webkit-scrollbar-thumb:hover {
+            background: #f59e0b;
+        }
+    </style>
+</head>
+<body class="bg-mldark-900 min-h-screen flex flex-col selection:bg-mlgold-500 selection:text-black">
+
+    <!-- Header & Navigation -->
+    <header class="sticky top-0 z-40 bg-mldark-950/90 backdrop-blur-md border-b border-slate-800">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 h-20 flex items-center justify-between">
+            <!-- Brand Logo -->
+            <div class="flex items-center space-x-3 cursor-pointer" onclick="switchSection('beranda')">
+                <div class="w-12 h-12 rounded-xl bg-gradient-to-tr from-mlgold-500 to-mlblue-600 flex items-center justify-center gold-glow">
+                    <i class="fa-solid fa-gamepad text-2xl text-black font-black"></i>
+                </div>
+                <div>
+                    <h1 class="text-xl sm:text-2xl font-black tracking-wider bg-gradient-to-r from-mlgold-400 via-amber-200 to-mlblue-500 bg-clip-text text-transparent">
+                        RAZKA MLBB INFO
+                    </h1>
+                    <p class="text-xs text-slate-400 font-medium tracking-widest uppercase">Portal & Ensiklopedia MLBB</p>
+                </div>
+            </div>
+
+            <!-- Desktop Nav -->
+            <nav class="hidden md:flex items-center space-x-8">
+                <button onclick="switchSection('beranda')" class="nav-link text-mlgold-400 font-semibold transition hover:text-mlgold-500 flex items-center gap-2">
+                    <i class="fa-solid fa-house"></i> Beranda
+                </button>
+                <button onclick="switchSection('heroes')" class="nav-link text-slate-300 font-semibold transition hover:text-mlgold-400 flex items-center gap-2">
+                    <i class="fa-solid fa-users"></i> Daftar Hero
+                </button>
+                <button onclick="switchSection('tierlist')" class="nav-link text-slate-300 font-semibold transition hover:text-mlgold-400 flex items-center gap-2">
+                    <i class="fa-solid fa-trophy"></i> Tier List
+                </button>
+                <button onclick="switchSection('panduan')" class="nav-link text-slate-300 font-semibold transition hover:text-mlgold-400 flex items-center gap-2">
+                    <i class="fa-solid fa-book-open"></i> Panduan Main
+                </button>
+            </nav>
+
+            <!-- Quick Search Bar (Header) -->
+            <div class="hidden lg:flex items-center relative">
+                <input type="text" id="headerSearch" placeholder="Cari hero..." 
+                    oninput="handleHeaderSearch(this.value)"
+                    class="bg-mldark-800 border border-slate-700 rounded-full px-4 py-2 pl-10 text-sm text-slate-200 focus:outline-none focus:border-mlgold-500 w-56 transition">
+                <i class="fa-solid fa-magnifying-glass absolute left-3.5 text-slate-400 text-sm"></i>
+            </div>
+
+            <!-- Mobile Menu Toggle -->
+            <button onclick="toggleMobileMenu()" class="md:hidden text-slate-300 hover:text-white text-2xl focus:outline-none">
+                <i class="fa-solid fa-bars" id="mobileMenuIcon"></i>
+            </button>
+        </div>
+
+        <!-- Mobile Dropdown Menu -->
+        <div id="mobileMenu" class="hidden md:hidden bg-mldark-950 border-b border-slate-800 px-4 pt-2 pb-4 space-y-3">
+            <button onclick="switchSection('beranda'); toggleMobileMenu();" class="block w-full text-left py-2 px-3 rounded text-slate-200 hover:bg-slate-800 font-medium">Beranda</button>
+            <button onclick="switchSection('heroes'); toggleMobileMenu();" class="block w-full text-left py-2 px-3 rounded text-slate-200 hover:bg-slate-800 font-medium">Daftar Hero</button>
+            <button onclick="switchSection('tierlist'); toggleMobileMenu();" class="block w-full text-left py-2 px-3 rounded text-slate-200 hover:bg-slate-800 font-medium">Tier List</button>
+            <button onclick="switchSection('panduan'); toggleMobileMenu();" class="block w-full text-left py-2 px-3 rounded text-slate-200 hover:bg-slate-800 font-medium">Panduan Main</button>
+            <div class="pt-2">
+                <input type="text" placeholder="Cari hero..." oninput="handleHeaderSearch(this.value)"
+                    class="w-full bg-mldark-800 border border-slate-700 rounded-lg px-4 py-2 text-sm text-slate-200 focus:outline-none focus:border-mlgold-500">
+            </div>
+        </div>
+    </header>
+
+    <!-- Main Content Wrapper -->
+    <main class="flex-grow">
+
+        <!-- ================= SECTION: BERANDA ================= -->
+        <section id="section-beranda" class="content-section">
+            <!-- Hero Banner -->
+            <div class="relative bg-gradient-to-r from-mldark-950 via-slate-900 to-mldark-950 py-16 lg:py-24 overflow-hidden border-b border-slate-800">
+                <div class="absolute inset-0 opacity-20 bg-[radial-gradient(#3b82f6_1px,transparent_1px)] [background-size:16px_16px]"></div>
+                <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 relative z-10 text-center">
+                    <span class="inline-block px-4 py-1.5 mb-6 rounded-full bg-mlgold-500/10 border border-mlgold-500/30 text-mlgold-400 font-bold text-xs uppercase tracking-widest gold-glow">
+                        <i class="fa-solid fa-crown mr-2"></i> Portal MLBB #1 di Indonesia
+                    </span>
+                    <h2 class="text-4xl sm:text-6xl font-black text-white tracking-tight mb-6">
+                        Kuasai Land of Dawn Bersama <span class="bg-gradient-to-r from-mlgold-400 to-amber-200 bg-clip-text text-transparent">Razka Mlbb Info</span>
+                    </h2>
+                    <p class="max-w-3xl mx-auto text-slate-300 text-base sm:text-lg mb-10 leading-relaxed">
+                        Temukan ensiklopedia hero terlengkap, rincian skill mematikan, rekomendasi build item pro player, emblem terkuat, serta panduan strategi rotasi untuk mencapai Mythic Glory dengan mudah.
+                    </p>
+                    <div class="flex flex-wrap justify-center gap-4">
+                        <button onclick="switchSection('heroes')" class="px-8 py-4 rounded-xl bg-gradient-to-r from-mlgold-500 to-amber-600 text-black font-extrabold hover:from-mlgold-400 hover:to-amber-500 transition shadow-lg gold-glow flex items-center gap-3 text-lg">
+                            <i class="fa-solid fa-shield-halved"></i> Jelajahi Daftar Hero
+                        </button>
+                        <button onclick="switchSection('panduan')" class="px-8 py-4 rounded-xl bg-mldark-800 border border-slate-700 text-slate-200 font-bold hover:bg-slate-800 hover:text-white transition flex items-center gap-3 text-lg">
+                            <i class="fa-solid fa-graduation-cap text-mlblue-500"></i> Panduan Bermain
+                        </button>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Quick Stats / Highlights -->
+            <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-12">
+                <div class="grid grid-cols-2 md:grid-cols-4 gap-6">
+                    <div class="bg-mldark-800/80 border border-slate-800 rounded-2xl p-6 text-center hover:border-mlgold-500/50 transition">
+                        <div class="text-3xl sm:text-4xl font-black text-mlgold-400 mb-2">120+</div>
+                        <div class="text-slate-400 text-sm font-medium">Hero Tersedia</div>
+                    </div>
+                    <div class="bg-mldark-800/80 border border-slate-800 rounded-2xl p-6 text-center hover:border-mlblue-500/50 transition">
+                        <div class="text-3xl sm:text-4xl font-black text-mlblue-500 mb-2">6</div>
+                        <div class="text-slate-400 text-sm font-medium">Role Utama</div>
+                    </div>
+                    <div class="bg-mldark-800/80 border border-slate-800 rounded-2xl p-6 text-center hover:border-mlgold-500/50 transition">
+                        <div class="text-3xl sm:text-4xl font-black text-amber-400 mb-2">100%</div>
+                        <div class="text-slate-400 text-sm font-medium">Build & Skill Akurat</div>
+                    </div>
+                    <div class="bg-mldark-800/80 border border-slate-800 rounded-2xl p-6 text-center hover:border-mlblue-500/50 transition">
+                        <div class="text-3xl sm:text-4xl font-black text-cyan-400 mb-2">Mythic</div>
+                        <div class="text-slate-400 text-sm font-medium">Meta & Strategy</div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Featured Heroes Preview -->
+            <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-8">
+                <div class="flex justify-between items-center mb-8">
+                    <div>
+                        <h3 class="text-2xl font-black text-white flex items-center gap-3">
+                            <i class="fa-solid fa-fire text-mlgold-500"></i> Hero Populer & Meta
+                        </h3>
+                        <p class="text-slate-400 text-sm">Pahlawan paling sering di-pick dalam turnamen dan Ranked match.</p>
+                    </div>
+                    <button onclick="switchSection('heroes')" class="text-mlgold-400 hover:text-mlgold-500 font-semibold text-sm flex items-center gap-1 transition">
+                        Lihat Semua <i class="fa-solid fa-arrow-right"></i>
+                    </button>
+                </div>
+                <div id="featuredHeroesGrid" class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-5 gap-6">
+                    <!-- Populated via JS -->
+                </div>
+            </div>
+        </section>
+
+
+        <!-- ================= SECTION: DAFTAR HERO ================= -->
+        <section id="section-heroes" class="content-section hidden py-10">
+            <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+                <div class="text-center mb-10">
+                    <h2 class="text-3xl sm:text-4xl font-black text-white mb-3">Ensiklopedia Hero Mobile Legends</h2>
+                    <p class="text-slate-400 max-w-2xl mx-auto text-sm sm:text-base">Pilih hero favoritmu untuk melihat rincian skill, cerita latar belakang, build item, emblem, serta tips & trik permainan.</p>
+                </div>
+
+                <!-- Search & Filter Controls -->
+                <div class="bg-mldark-800/90 border border-slate-800 rounded-2xl p-4 sm:p-6 mb-8 shadow-xl">
+                    <div class="flex flex-col md:flex-row gap-4 justify-between items-center">
+                        <!-- Search Bar -->
+                        <div class="relative w-full md:w-80">
+                            <input type="text" id="heroSearchInput" placeholder="Cari nama hero (mis: Gusion, Fanny)..." 
+                                oninput="filterHeroList()"
+                                class="w-full bg-mldark-900 border border-slate-700 rounded-xl px-4 py-3 pl-11 text-sm text-slate-200 focus:outline-none focus:border-mlgold-500 transition">
+                            <i class="fa-solid fa-magnifying-glass absolute left-4 top-3.5 text-slate-400"></i>
+                        </div>
+
+                        <!-- Role Filter Buttons -->
+                        <div class="flex flex-wrap gap-2 w-full md:w-auto justify-center md:justify-end" id="roleFilterButtons">
+                            <button onclick="setRoleFilter('All')" class="role-btn px-4 py-2 rounded-xl text-xs font-bold bg-mlgold-500 text-black transition shadow">Semua</button>
+                            <button onclick="setRoleFilter('Assassin')" class="role-btn px-4 py-2 rounded-xl text-xs font-bold bg-mldark-900 border border-slate-700 text-slate-300 hover:border-mlgold-500 transition">Assassin</button>
+                            <button onclick="setRoleFilter('Mage')" class="role-btn px-4 py-2 rounded-xl text-xs font-bold bg-mldark-900 border border-slate-700 text-slate-300 hover:border-mlgold-500 transition">Mage</button>
+                            <button onclick="setRoleFilter('Marksman')" class="role-btn px-4 py-2 rounded-xl text-xs font-bold bg-mldark-900 border border-slate-700 text-slate-300 hover:border-mlgold-500 transition">Marksman</button>
+                            <button onclick="setRoleFilter('Fighter')" class="role-btn px-4 py-2 rounded-xl text-xs font-bold bg-mldark-900 border border-slate-700 text-slate-300 hover:border-mlgold-500 transition">Fighter</button>
+                            <button onclick="setRoleFilter('Tank')" class="role-btn px-4 py-2 rounded-xl text-xs font-bold bg-mldark-900 border border-slate-700 text-slate-300 hover:border-mlgold-500 transition">Tank</button>
+                            <button onclick="setRoleFilter('Support')" class="role-btn px-4 py-2 rounded-xl text-xs font-bold bg-mldark-900 border border-slate-700 text-slate-300 hover:border-mlgold-500 transition">Support</button>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Hero Grid Container -->
+                <div id="heroGrid" class="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 lg:grid-cols-5 gap-6">
+                    <!-- Populated via JS -->
+                </div>
+
+                <!-- Empty State -->
+                <div id="noHeroesFound" class="hidden text-center py-16">
+                    <i class="fa-solid fa-ghost text-5xl text-slate-600 mb-4"></i>
+                    <h3 class="text-xl font-bold text-slate-300">Hero tidak ditemukan</h3>
+                    <p class="text-slate-500 text-sm mt-1">Coba kata kunci lain atau ubah filter role.</p>
+                </div>
+            </div>
+        </section>
+
+
+        <!-- ================= SECTION: TIER LIST ================= -->
+        <section id="section-tierlist" class="content-section hidden py-10">
+            <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+                <div class="text-center mb-10">
+                    <h2 class="text-3xl sm:text-4xl font-black text-white mb-3">Tier List Meta MLBB Terbaru</h2>
+                    <p class="text-slate-400 max-w-2xl mx-auto text-sm sm:text-base">Peringkat kekuatan hero di patch saat ini berdasarkan win rate, ban rate, dan performa di turnamen profesional.</p>
+                </div>
+
+                <div class="space-y-6">
+                    <!-- Tier S+ -->
+                    <div class="bg-mldark-800/80 border border-red-500/40 rounded-2xl p-6 shadow-lg">
+                        <div class="flex items-center gap-3 mb-4">
+                            <span class="px-3.5 py-1.5 rounded-lg bg-red-600 text-white font-black text-sm tracking-wider">TIER S+</span>
+                            <h3 class="text-lg font-bold text-white">Meta Prioritas Utama (Sering di-Ban / First Pick)</h3>
+                        </div>
+                        <div id="tierSPlusGrid" class="grid grid-cols-2 sm:grid-cols-4 lg:grid-cols-6 gap-4">
+                            <!-- Populated via JS -->
+                        </div>
+                    </div>
+
+                    <!-- Tier S -->
+                    <div class="bg-mldark-800/80 border border-amber-500/40 rounded-2xl p-6 shadow-lg">
+                        <div class="flex items-center gap-3 mb-4">
+                            <span class="px-3.5 py-1.5 rounded-lg bg-amber-600 text-white font-black text-sm tracking-wider">TIER S</span>
+                            <h3 class="text-lg font-bold text-white">Hero Sangat Kuat & Fleksibel</h3>
+                        </div>
+                        <div id="tierSGrid" class="grid grid-cols-2 sm:grid-cols-4 lg:grid-cols-6 gap-4">
+                            <!-- Populated via JS -->
+                        </div>
+                    </div>
+
+                    <!-- Tier A -->
+                    <div class="bg-mldark-800/80 border border-blue-500/40 rounded-2xl p-6 shadow-lg">
+                        <div class="flex items-center gap-3 mb-4">
+                            <span class="px-3.5 py-1.5 rounded-lg bg-blue-600 text-white font-black text-sm tracking-wider">TIER A</span>
+                            <h3 class="text-lg font-bold text-white">Hero Kompetitif & Nyaman Digunakan</h3>
+                        </div>
+                        <div id="tierAGrid" class="grid grid-cols-2 sm:grid-cols-4 lg:grid-cols-6 gap-4">
+                            <!-- Populated via JS -->
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+
+        <!-- ================= SECTION: PANDUAN BERMAIN ================= -->
+        <section id="section-panduan" class="content-section hidden py-10">
+            <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+                <div class="text-center mb-12">
+                    <h2 class="text-3xl sm:text-4xl font-black text-white mb-3">Panduan & Strategi Pro MLBB</h2>
+                    <p class="text-slate-400 max-w-2xl mx-auto text-sm sm:text-base">Tingkatkan skill permainanmu dari tier Epic hingga Mythic Glory dengan memahami dasar-dasar objektif dan rotasi.</p>
+                </div>
+
+                <div class="grid grid-cols-1 md:grid-cols-3 gap-8">
+                    <!-- Card 1 -->
+                    <div class="bg-mldark-800/80 border border-slate-800 rounded-2xl p-6 hover:border-mlgold-500/50 transition">
+                        <div class="w-14 h-14 rounded-2xl bg-mlgold-500/10 border border-mlgold-500/30 flex items-center justify-center text-mlgold-400 text-2xl mb-6">
+                            <i class="fa-solid fa-compass"></i>
+                        </div>
+                        <h3 class="text-xl font-bold text-white mb-3">Rotasi & Map Awareness</h3>
+                        <p class="text-slate-400 text-sm leading-relaxed mb-4">
+                            Jangan terpaku pada satu lane. Sebagai Jungler atau Roamer, ke
